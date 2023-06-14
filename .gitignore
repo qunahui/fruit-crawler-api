@@ -1,0 +1,8 @@
+/build
+/node_modules
+/.env.development
+/.env.production
+/package-lock.json
+/yarn.error.log
+/yarn.lock
+/src/assets
