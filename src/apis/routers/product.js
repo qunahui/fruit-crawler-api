@@ -152,13 +152,9 @@ var list = [
 
 var pgnumber = 1;
 
-let pgSize = 10;
-
-let searchoptions = [];
-
 router.post("/autocomplete", (req, res) => {
   query = req.body.queries;
-  searchoptions = list.filter((value) =>
+  const searchoptions = list.filter((value) =>
     value.names.toLowerCase().includes(query.toLowerCase())
   );
   res.status(200).send({ data: searchoptions });
