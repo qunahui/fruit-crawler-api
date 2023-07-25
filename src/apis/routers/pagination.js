@@ -49,7 +49,7 @@ var list = [
   },
   {
     id: 10,
-    names: "Neon",
+    names: "Radium",
     prices: 20003,
   },
   {
@@ -148,71 +148,26 @@ var list = [
     names: "Copper",
     prices: 20003,
   },
+  {
+    id: 30,
+    names: "Zinc",
+    prices: 20003,
+  },
 ];
 
-var pgnumber = 1;
-
-let pgSize = 10;
-
-let searchoptions = [];
-
-router.post("/autocomplete", (req, res) => {
-  query = req.body.queries;
-  searchoptions = list.filter((value) =>
-    value.names.toLowerCase().includes(query.toLowerCase())
-  );
-  res.status(200).send({ data: searchoptions });
-});
+let pgnumber = 1;
 
 router.get("/:id", (req, res) => {
   res.status(200).send({ data: list });
 });
 
 router.get("/", (req, res) => {
-  const { page, pageSize } = req.query;
-
-  res.status(200).send({
-    data: list.slice((page - 1) * pgSize, page * pageSize),
-    pagination: {
-      totalPages: Math.round(list.length / 10),
-      totalDocs: list.length,
-    },
-  });
-});
-
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const updateItem = req.body;
-  list = [...list].map((item) => {
-    if (item.id?.toString() === id?.toString()) {
-      return {
-        ...item,
-        ...updateItem,
-      };
-    }
-
-    return item;
-  });
-
-  res.status(204).send({});
+  res.status(200).send({ data: list });
 });
 
 router.post("/", (req, res) => {
-  const newItem = req.body;
-  list = list.concat([
-    {
-      id: list.length + 1,
-      ...newItem,
-    },
-  ]);
-
-  res.status(201).send({
-    data: newItem,
-  });
-});
-
-router.delete("/:id", (req, res) => {
-  res.status(200).send({ data: list });
+  const pgnumber = JSON.stringify("lmao");
+  res.status(200).send({ data: pgnumber });
 });
 
 module.exports = router;
