@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const CustomError = require("../utils/error");
@@ -55,20 +54,28 @@ var list = [
       "https://lzd-img-global.slatic.net/g/p/7c55987a06c8fbc322ba1634b457ede0.jpg_400x400q75.jpg_.webp",
   },
   {
-    id: 6,
-    names: "Carbon",
+    id: 2,
+    names: "Helium",
     prices: 20003,
-    stores: "shopee",
-    links:
-      "https://lzd-img-global.slatic.net/g/p/7c55987a06c8fbc322ba1634b457ede0.jpg_400x400q75.jpg_.webp",
   },
   {
-    id: 7,
-    names: "Nitrogen",
+    id: 3,
+    names: "Lithium",
+    prices: 20003,
+  },
+  {
+    id: 4,
+    names: "Beryllium",
+    prices: 20003,
+  },
+  {
+    id: 5,
+    names: "Boron",
     prices: 20003,
     stores: "shopee",
     links:
       "https://lzd-img-global.slatic.net/g/p/7c55987a06c8fbc322ba1634b457ede0.jpg_400x400q75.jpg_.webp",
+    stores: "shopee",
   },
   {
     id: 8,
@@ -82,6 +89,7 @@ var list = [
     id: 9,
     names: "Fluorine",
     prices: 20003,
+
     stores: "shopee",
     links:
       "https://lzd-img-global.slatic.net/g/p/7c55987a06c8fbc322ba1634b457ede0.jpg_400x400q75.jpg_.webp",
@@ -129,7 +137,6 @@ var list = [
   {
     id: 15,
     names: "Phosphorus",
-    prices: 20003,
     stores: "shopee",
     links:
       "https://lzd-img-global.slatic.net/g/p/7c55987a06c8fbc322ba1634b457ede0.jpg_400x400q75.jpg_.webp",

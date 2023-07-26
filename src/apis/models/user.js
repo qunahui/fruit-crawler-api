@@ -4,25 +4,6 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const platformCredentialSchema = new Schema({
-  app_key: {
-    type: String,
-    required: true
-  },
-  app_secret: {
-    type: String,
-    required: true
-  },
-  store_name: {
-    type: String, 
-    required: true
-  },
-  platform_name: {
-    type: String,
-    required: true,
-  }
-})
-
 const schema = new Schema({
   email: {
     type: String,
@@ -57,23 +38,11 @@ const schema = new Schema({
     type: Boolean,
     default: false,
   },
-  storages: [
-    {
-      storage: {
-        storageId: {
-          type: mongoose.Schema.Types.ObjectId,
-        },
-        storageName: {
-          type: String
-        }
-      }
-    },
-  ],
   tokens: [
     {
       token: {
-          type: String,
-        }
+        type: String,
+      },
     },
   ],
 });
@@ -81,26 +50,27 @@ const schema = new Schema({
 schema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
-  const currentStorage = userObject.storages[0].storage
 
-  userObject.currentStorage = currentStorage
-  delete userObject.storages
-  delete userObject.tokens
-  delete userObject.password
-  delete userObject.isDeleted
-  
+  delete userObject.tokens;
+  delete userObject.password;
+  delete userObject.isDeleted;
+
   return userObject;
 };
 
 // generate jwt
 schema.methods.generateJWT = async function () {
   const user = this;
-  const token = jwt.sign({ 
-    _id: user._id.toString(),
-    currentStorage: user.storages[0].storage
-  }, "thuongthuong", {
-    expiresIn: '30d'
-  });
+  const token = jwt.sign(
+    {
+      _id: user._id.toString(),
+      currentStorage: user.storages[0].storage,
+    },
+    "thuongthuong",
+    {
+      expiresIn: "30d",
+    }
+  );
 
   user.tokens = user.tokens.concat({ token });
   await user.save();
@@ -110,14 +80,13 @@ schema.methods.generateJWT = async function () {
 
 // check login
 schema.statics.findByCredentials = async (email, password) => {
-  console.log(email)
+  console.log(email);
   const user = await User.findOne({ email });
   if (!user) {
     throw new Error("Unable to login!");
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
-
 
   if (!isMatch) {
     throw new Error("Unable to login");
